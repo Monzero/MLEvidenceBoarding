@@ -3,17 +3,31 @@ import transformers
 from transformers import pipeline
 import networkx as nx
 import matplotlib.pyplot as plt
+import tensorflow as tf
+import torch
 
-# Define the path to the file
+from transformers import AutoTokenizer, AutoModelForTokenClassification
+from transformers import pipeline
+
+
 file_path = "C:\\Users\\Monil\\OneDrive\\Desktop\\MSDS\\98_capstone\\"
 directory = os.path.dirname(file_path)
 os.chdir(directory)
 
+print(tf.__version__)
+
 # Load the Hugging Face NER pipeline
-nlp_ner = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english", tokenizer="dbmdz/bert-large-cased-finetuned-conll03-english")
+#nlp_ner = pipeline("ner", model="dbmdz/bert-large-cased-finetuned-conll03-english", 
+#                   tokenizer="dbmdz/bert-large-cased-finetuned-conll03-english")
+
+tokenizer = AutoTokenizer.from_pretrained("dslim/bert-base-NER")
+model1 = AutoModelForTokenClassification.from_pretrained("dslim/bert-base-NER")
+
+nlp_ner = pipeline("ner", model=model1, tokenizer=tokenizer)
+
 
 # Read the story from the text file
-with open('thestory.txt', 'r') as file:
+with open('thestory_t_0.txt', 'r') as file:
     text = file.read()
 
 # Process the text using the NER pipeline

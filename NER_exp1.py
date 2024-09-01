@@ -21,11 +21,13 @@ directory = os.path.dirname(file_path)
 os.chdir(directory)
 
 # Load Spacy Model
+#python -m spacy download en_core_web_sm
+
 nlp = spacy.load("en_core_web_sm")
 
 # Process the text
 # Read the story from the text file
-with open('thestory.txt', 'r') as file:
+with open('thestory_t_0.txt', 'r') as file:
     text = file.read()
 
 doc = nlp(text)
